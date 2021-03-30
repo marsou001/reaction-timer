@@ -1,17 +1,24 @@
 <template>
-  <h1 class="header">Ninja Reaction Timer</h1>
-  <button class="play" @click="startGame" :disabled="gameStarted">Play</button>
-  <div class="target" v-if="showBox" @click="endGame">
-    click me
-  </div>
-  <div class="result" v-if="hasResult">
-    {{ result }}
-  </div>
+  <Header />
+  <PlayButton @start='startGame' :gameStarted='gameStarted' />
+  <BoxToClick v-if="showBox" @end='endGame' />
+  <Result :result='result' :hasResult='hasResult' />
 </template>
 
 <script>
+import Header from "./components/Header/Header";
+import PlayButton from "./components/PlayButton/PlayButton";
+import BoxToClick from "./components/BoxToClick/BoxToClick";
+import Result from "./components/Result/Result";
+
 export default {
   name: "App",
+  components: {
+    Header,
+    PlayButton,
+    BoxToClick,
+    Result,
+  },
   data() {
     return {
       timeout: (Math.random() * 3000).toFixed(0),
@@ -53,43 +60,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
-}
-.play {
-  color: rgb(238, 228, 228);
-  background-color: rgb(27, 172, 83);
-  padding: 10px 15px;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  transition-property: background-color;
-  transition-duration: 0.2s;
-}
-.play:hover {
-  background-color: rgb(16, 148, 67);
-}
-.play[disabled] {
-  background-color: rgb(99, 189, 133);
-  cursor: initial;
-}
-.play[disabled]:hover {
-  background-color: rgb(99, 189, 133);
-}
-.target {
-  color: white;
-  background-color: rgb(27, 172, 83);
-  font-size: 1.7em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 450px;
-  height: 200px;
-  margin: auto;
-  margin-top: 30px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-.result {
   margin-top: 60px;
 }
 </style>
