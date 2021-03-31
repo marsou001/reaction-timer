@@ -2,7 +2,7 @@
   <Header />
   <PlayButton @start='startGame' :gameStarted='gameStarted' />
   <BoxToClick v-if="showBox" @end='endGame' />
-  <Result :result='result' :hasResult='hasResult' />
+  <Result :result='result' :hasResult='hasResult' :resultDescription='resultDescription' />
 </template>
 
 <script>
@@ -28,6 +28,7 @@ export default {
       timerEnd: 0,
       result: 0,
       hasResult: false,
+      resultDescription: '',
     };
   },
   methods: {
@@ -48,7 +49,8 @@ export default {
       this.showBox = false;
       this.gameStarted = false;
       this.hasResult = true;
-    }
+      this.resultDescription = (this.timerEnd - this.timerStart) < 500 ? 'Fast Reaction' : 'Snail Pace';
+    },
   },
 };
 </script>
